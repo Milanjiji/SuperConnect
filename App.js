@@ -13,14 +13,12 @@ const App = () => {
   const [connection,setConnection] = useState(false)
   const [ip,setIp] = useState('http://192.168.43.79:3000/');
 
-  
   console.log(ip);
   
-
     const CheakConnection = async () => {
       try {
         const response = await fetch(ip, {
-          method: 'GET', // or 'POST', etc.
+          method: 'GET', 
           headers: {
             'Content-Type': 'application/json',
           },
@@ -36,38 +34,30 @@ const App = () => {
         setConnection(true);
         setError('All good');
       } catch (err) {
-        setError(err.message);
-        console.log(err.message);
-        
+        setError('Ip not Correct');
+        console.log('not conencted');
+        setConnection(false);
       }
 
     };
 
  
   return (
-    <View style={styles.container}>
+    <View style={{flex:1,justifyContent:'center',alignItems:'center',padding:'6%'}}>
 
-      <View>
-        <TextInput onChangeText={(text)=>setIp(`http://${text}:3000/`)} style={{borderWidth:1,borderColor:'black',margin:10}} placeholder='Enter the ip address' />
-        <Button onPress={CheakConnection} title='Connect' />
+      <View style={{width:'100%'}} >
+
+        <TextInput  onChangeText={(text)=>setIp(`http://${text}:3000/`)} style={{borderWidth:1,borderColor:'white',padding:10,width:'100%',marginBottom:10,backgroundColor:'#EEEDEB'}} placeholder={'Enter Ip for eg : 192.168.43.79'} />
+        <Button onPress={CheakConnection} title='Cheack Connection' />
+        <Text style={{color:'black',marginTop:10}} >{connection ? 'Connection status good' : 'Not connected'}{connection ? '' : error}</Text>
       </View>
 
-      {error ? (
-          <Text style={styles.errorText}>Error: {error}</Text>
-        ) : data ? (
-          <Text style={styles.dataText}>Data from server: {JSON.stringify(data)}</Text>
-        ) : (
-          <Text style={styles.loadingText}>Loading...</Text>
-        )}
+      
 
-
-      <TextUpload ip={ip} connection={connection} />
+      {/* <TextUpload ip={ip} connection={connection} /> */}
       <FileUpload ip={ip} connection={connection} />
-      <StateUpload ip={ip} />
-      
+      {/* <StateUpload ip={ip} /> */}
 
-
-      
       {/* <Chunks /> */}
     </View>
   );

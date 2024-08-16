@@ -7,7 +7,7 @@ const FileUpload = (props) =>{
 
     const [responseMessage, setResponseMessage] = useState('');
     const [uploadProgress, setUploadProgress] = useState(0); 
-    const [uploadSpeed, setUploadSpeed] = useState(''); 
+    const [uploadState,setUploadState] = useState('');
 
     let previousLoaded = 0;
     let previousTimestamp = Date.now();
@@ -34,30 +34,17 @@ const FileUpload = (props) =>{
         Upload.addListener('progress', uploadId, (data) => {
           const percentComplete = Math.round(data.progress);
           setUploadProgress(percentComplete);
-
-          const currentTime = Date.now();
-          const timeElapsed = (currentTime - previousTimestamp) / 1000; // in seconds
-          const bytesUploadedSinceLast = data.totalBytesSent - previousLoaded;
-
-          if (timeElapsed > 0) {
-            const speedInBytesPerSecond = bytesUploadedSinceLast / timeElapsed;
-            console.log(bytesUploadedSinceLast / timeElapsed);
-            
-            setUploadSpeed(`${(speedInBytesPerSecond / (1024 * 1024)).toFixed(2)} MB/s`);
-            console.log(`${(speedInBytesPerSecond / (1024 * 1024)).toFixed(2)} MB/s`);
-             // Speed in MB/s
-          }
-
-          previousLoaded = data.totalBytesSent;
-          previousTimestamp = currentTime;
         });
     
         Upload.addListener('error', uploadId, (data) => {
           setResponseMessage(`Error: ${data.error}`);
+          setUploadState('Upload failed')
         });
     
         Upload.addListener('completed', uploadId, (data) => {
           setResponseMessage(`File uploaded successfully: ${data.responseBody}`);
+          setUploadState('File Uploaded Successfully')
+
         });
       } catch (err) {
         if (DocumentPicker.isCancel(err)) {
@@ -69,14 +56,16 @@ const FileUpload = (props) =>{
     };
     
     return(
-        <View style={{display : props.connection ? 'flex' : 'none',flexDirection:'column'}} >
+        <View style={{display : props.connection ? 'flex' : 'none',flexDirection:'column',width:'100%',marginTop:40}} >
             <Button title="Upload File" onPress={uploadFile} />
-                {responseMessage ? (
-                <Text >{responseMessage}</Text>
-                ) : null}
-            
-            <Text>Current Progress : {uploadProgress}</Text>
-            <Text>Current Speed : {uploadSpeed}</Text>
+              <View style={{
+                height:10,
+                width:`${uploadProgress}%`,
+                backgroundColor:'green',
+                marginTop:10,
+                borderRadius:10
+              }} ></View>
+              <Text style={{color:'black',marginTop:10}} >Current Progress : {uploadProgress}% {uploadState}</Text>
         </View>
     )
 }
