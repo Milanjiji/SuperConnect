@@ -9,8 +9,6 @@ const FileUpload = (props) =>{
     const [uploadProgress, setUploadProgress] = useState(0); 
     const [uploadState,setUploadState] = useState('');
 
-    let previousLoaded = 0;
-    let previousTimestamp = Date.now();
 
     const uploadFile = async () => {
       try {
@@ -37,21 +35,16 @@ const FileUpload = (props) =>{
         });
     
         Upload.addListener('error', uploadId, (data) => {
-          setResponseMessage(`Error: ${data.error}`);
           setUploadState('Upload failed')
         });
     
         Upload.addListener('completed', uploadId, (data) => {
-          setResponseMessage(`File uploaded successfully: ${data.responseBody}`);
           setUploadState('File Uploaded Successfully')
 
         });
       } catch (err) {
-        if (DocumentPicker.isCancel(err)) {
-          setResponseMessage('File selection was canceled');
-        } else {
-          setResponseMessage(`Error: ${err.message}`);
-        }
+      setUploadState(err)
+        
       }
     };
     
