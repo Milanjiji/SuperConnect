@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "nodejs-mobile-react-native": "^18.17.7",
     "react": "18.2.0",
     "react-native": "0.71.4",
     "react-native-background-upload": "^6.6.0",
