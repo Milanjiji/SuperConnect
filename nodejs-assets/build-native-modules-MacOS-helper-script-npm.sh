@@ -1,5 +1,0 @@
-#!/bin/bash
-      # Helper script for Gradle to call npm on macOS in case it is not found
-      export PATH=$PATH:/Users/milan/Dev/SuperConnect/node_modules/nodejs-mobile-react-native/node_modules/.bin:/Users/milan/Dev/SuperConnect/node_modules/node_modules/.bin:/Users/milan/Dev/SuperConnect/node_modules/.bin:/Users/milan/Dev/node_modules/.bin:/Users/milan/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/iTerm.app/Contents/Resources/utilities:/Users/milan/Library/Android/sdk/emulator:/Users/milan/Library/Android/sdk/platform-tools
-      npm $@
-    
